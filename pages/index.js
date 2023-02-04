@@ -10,13 +10,16 @@ export default function Home() {
   const [result, setResult] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [complexity, setComplexity] = useState("Time");
+  // const [prevInput, setPrevInput] = ("")
 
-  async function onSubmit(event) {
+  async function sendRequest(event) {
     event.preventDefault();
+    console.log(complexity);
     try {
       setError("");
       setLoading(true);
-      const response = await fetch("/api/generate", {
+      const response = await fetch(`/api/generate${complexity}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,12 +36,16 @@ export default function Home() {
       }
 
       setResult(data.result);
-      setCodeInput("");
       setLoading(false);
     } catch (error) {
       console.error(error);
       setError(true);
     }
+  }
+
+  const handleComplexity = (value) => {
+    setComplexity(value)
+    setResult("")
   }
 
   return (
@@ -50,10 +57,27 @@ export default function Home() {
 
       <main className={styles.main}>
         <Image src="/comp.png" width={75} height={75} alt="logo" />
-        <h3>What's Your Time Complexity?</h3>
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
+        <h3>What's Your {complexity} Complexity?</h3>
+        <div>
+          <button
+            onClick={(e) => handleComplexity(e.target.value)}
+            className={styles.button}
+            value= "Time"
+          >
+            Time
+          </button>
+          <button
+            onClick={(e) => handleComplexity(e.target.value)}
+            className={styles.button}
+            value= "Space"
+          >
+            Space
+          </button>
+        </div>
+        <form onSubmit={sendRequest}>
+          <textarea
+            rows={3}
+            cols={50}
             name="code"
             placeholder="Paste Code Here"
             value={codeInput}
@@ -63,7 +87,7 @@ export default function Home() {
         </form>
         {error ? (
           <div className={styles.error}>
-          <Error />
+            <Error />
           </div>
         ) : (
           <div className={styles.result}>{loading ? <Loading /> : result}</div>
