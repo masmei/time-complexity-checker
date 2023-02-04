@@ -9,7 +9,7 @@ export default function Home() {
   const [codeInput, setCodeInput] = useState("");
   const [result, setResult] = useState();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -37,14 +37,14 @@ export default function Home() {
       setLoading(false);
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      setError(true);
     }
   }
 
   return (
     <div>
       <Head>
-        <title>OpenAI Quickstart</title>
+        <title>Complexity Calculator</title>
         <link rel="icon" href="/comp.png" />
       </Head>
 
@@ -61,7 +61,13 @@ export default function Home() {
           />
           <input type="submit" value="Check" />
         </form>
-        <div className={styles.result}>{loading ? <Loading /> : result}</div>
+        {error ? (
+          <div className={styles.error}>
+          <Error />
+          </div>
+        ) : (
+          <div className={styles.result}>{loading ? <Loading /> : result}</div>
+        )}
       </main>
     </div>
   );

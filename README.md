@@ -1,42 +1,29 @@
-# OpenAI API Quickstart - Node.js example app
+# Time Complexity Checker
 
-This is an example pet name generator app used in the OpenAI API [quickstart tutorial](https://beta.openai.com/docs/quickstart). It uses the [Next.js](https://nextjs.org/) framework with [React](https://reactjs.org/). Check out the tutorial or follow the instructions below to get set up.
+A web app that analyzes the time complexity of your code. Simply paste your code into the input field and hit the "Check" button to get the result.
 
-## Setup
+## Features
 
-1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
+- User-friendly interface with a text input field and a submit button
+- Calculates the time complexity of the code and displays the result
+- Loading indicator while the calculation is in progress
+- Error handling for any issues during the calculation process
 
-2. Clone this repository
+## Technology Stack
 
-3. Navigate into the project directory
+- Next.js for the frontend
+- Express for the backend API
+- JavaScript for the code logic
+- CSS for styling
+- Openai API
 
-   ```bash
-   $ cd openai-quickstart-node
-   ```
+## How to run
 
-4. Install the requirements
+1. Clone this repository
+2. Run `npm install` to install all the required dependencies
+3. Run `npm run dev` to start the development server
+4. Open your browser and go to `http://localhost:3000` to access the app
 
-   ```bash
-   $ npm install
-   ```
+## Contributing
 
-5. Make a copy of the example environment variables file
-
-   On Linux systems: 
-   ```bash
-   $ cp .env.example .env
-   ```
-   On Windows:
-   ```powershell
-   $ copy .env.example .env
-   ```
-6. Add your [API key](https://beta.openai.com/account/api-keys) to the newly created `.env` file
-
-7. Run the app
-
-   ```bash
-   $ npm run dev
-   ```
-
-You should now be able to access the app at [http://localhost:3000](http://localhost:3000)! For the full context behind this example app, check out the [tutorial](https://beta.openai.com/docs/quickstart).
-# time-complexity-checker
+We welcome contributions to this project. If you have an idea for a new feature or a bug fix, please open an issue. If you want to contribute code, please fork the repository and submit a pull request.
