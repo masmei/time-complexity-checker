@@ -1,8 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
-import Loading from "../components/Loading";
-import Error from "../components/Error";
 
 export default function Home() {
   const [companyName, setCompanyName] = useState("");
@@ -10,8 +8,6 @@ export default function Home() {
   const [productDescription, setProductDescription] = useState("");
   const [targetAudience, setTargetAudience] = useState("");
   const [result, setResult] = useState();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -35,10 +31,9 @@ export default function Home() {
       }
 
       setResult(data.result.split("\n\n"));
-      setLoading(false);
+     
     } catch (error) {
       console.error(error);
-      setError(error);
       alert(error.message);
     }
   }
@@ -83,24 +78,11 @@ export default function Home() {
           />
           <input type="submit" value="Generate" />
         </form>
-        {error ? (
-          <div className={styles.error}>
-            <Error />
-          </div>
-        ) : (
-          <div className={styles.result}>
-            {loading ? (
-              <Loading />
-            ) : (
-              result &&
-              result.map((campaign, index) => (
+        <div className={styles.result}>{result && result.map((campaign, index) => (
                 <div className={styles.campaign} key={index}>
                   <pre>{campaign}</pre>
                 </div>
-              ))
-            )}
-          </div>
-        )}
+              ))}</div>
       </main>
     </div>
   );
