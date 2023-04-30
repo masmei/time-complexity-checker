@@ -30,8 +30,11 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result.split("\n\n"));
-     
+      setResult(data.result);
+      setCompanyName("");
+      setCompanyDescription("");
+      setProductDescription("");
+      setTargetAudience("");
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -78,11 +81,7 @@ export default function Home() {
           />
           <input type="submit" value="Generate" />
         </form>
-        <div className={styles.result}>{result && result.map((campaign, index) => (
-                <div className={styles.campaign} key={index}>
-                  <pre>{campaign}</pre>
-                </div>
-              ))}</div>
+        <div className={styles.result}>{result}</div>
       </main>
     </div>
   );
