@@ -25,7 +25,6 @@
   flex-direction: column;
   align-items: center;
   padding-top: 60px;
-  text-align: center;
 }
 .main .icon {
   width: 34px;
@@ -35,20 +34,19 @@
   line-height: 40px;
   font-weight: bold;
   color: #202123;
-  margin: 16px 0 20px;
+  margin: 16px 0 40px;
 }
 .main form {
   display: flex;
   flex-direction: column;
   width: 320px;
 }
-.main textarea {
+.main input[type="text"] {
   padding: 12px 16px;
-  border: 1px solid hsl(240deg 80% 59%);
+  border: 1px solid #10a37f;
   border-radius: 4px;
-  margin-top: 10px;
   margin-bottom: 24px;
-  outline-color: hsl(240deg 80% 59%);
+  outline-color: #10a37f;
 }
 .main ::placeholder {
   color: #8e8ea0;
@@ -57,7 +55,7 @@
 .main input[type="submit"] {
   padding: 12px 0;
   color: #fff;
-  background-color: hsl(240deg 80% 59%);
+  background-color: #10a37f;
   border: none;
   border-radius: 4px;
   text-align: center;
@@ -66,21 +64,4 @@
 .main .result {
   font-weight: bold;
   margin-top: 40px;
-}
-
-.main .error {
-  font-weight: bold;
-  color: red;
-  margin-top: 40px;
-}
-
- .button {
-  padding: 6px;
-  margin: 5px;
-  color: black;
-  background-color: #FEE135;
-  border: none;
-  border-radius: 4px;
-  text-align: center;
-  cursor: pointer;
 }

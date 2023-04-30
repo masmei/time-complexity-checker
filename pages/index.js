@@ -1,97 +1,87 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
-import Loading from "../components/Loading";
-import Error from "../components/Error";
-import Image from "next/image";
 
 export default function Home() {
-  const [codeInput, setCodeInput] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyDescription, setCompanyDescription] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [targetAudience, setTargetAudience] = useState("");
   const [result, setResult] = useState();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [complexity, setComplexity] = useState("Time");
-  // const [prevInput, setPrevInput] = ("")
 
-  async function sendRequest(event) {
+  async function onSubmit(event) {
     event.preventDefault();
-    console.log(complexity);
     try {
-      setError("");
-      setLoading(true);
-      const response = await fetch(`/api/generate${complexity}`, {
+      const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ code: codeInput }),
+        body: JSON.stringify({
+          companyName,
+          companyDescription,
+          productDescription,
+          targetAudience,
+        }),
       });
 
       const data = await response.json();
       if (response.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
-        );
+        throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
       setResult(data.result);
-      setLoading(false);
+      setCompanyName("");
+      setCompanyDescription("");
+      setProductDescription("");
+      setTargetAudience("");
     } catch (error) {
       console.error(error);
-      setError(true);
+      alert(error.message);
     }
-  }
-
-  const handleComplexity = (value) => {
-    setComplexity(value)
-    setResult("")
   }
 
   return (
     <div>
       <Head>
-        <title>Complexity Calculator</title>
-        <link rel="icon" href="/comp.png" />
+        <title>MIA - Marketing Ideation App</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <Image src="/comp.png" width={75} height={75} alt="logo" />
-        <h3>What's Your {complexity} Complexity?</h3>
-        <div>
-          <button
-            onClick={(e) => handleComplexity(e.target.value)}
-            className={styles.button}
-            value= "Time"
-          >
-            Time
-          </button>
-          <button
-            onClick={(e) => handleComplexity(e.target.value)}
-            className={styles.button}
-            value= "Space"
-          >
-            Space
-          </button>
-        </div>
-        <form onSubmit={sendRequest}>
-          <textarea
-            rows={3}
-            cols={50}
-            name="code"
-            placeholder="Paste Code Here"
-            value={codeInput}
-            onChange={(e) => setCodeInput(e.target.value)}
+        <h1 className={styles.title}>MIA - Marketing Ideation App</h1>
+        <form onSubmit={onSubmit}>
+          <input
+            type="text"
+            name="companyName"
+            placeholder="Company Name"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
           />
-          <input type="submit" value="Check" />
+          <input
+            type="text"
+            name="companyDescription"
+            placeholder="Company Description"
+            value={companyDescription}
+            onChange={(e) => setCompanyDescription(e.target.value)}
+          />
+          <input
+            type="text"
+            name="productDescription"
+            placeholder="Product Description"
+            value={productDescription}
+            onChange={(e) => setProductDescription(e.target.value)}
+          />
+          <input
+            type="text"
+            name="targetAudience"
+            placeholder="Target Audience"
+            value={targetAudience}
+            onChange={(e) => setTargetAudience(e.target.value)}
+          />
+          <input type="submit" value="Generate" />
         </form>
-        {error ? (
-          <div className={styles.error}>
-            <Error />
-          </div>
-        ) : (
-          <div className={styles.result}>{loading ? <Loading /> : result}</div>
-        )}
+        <div className={styles.result}>{result}</div>
       </main>
     </div>
   );
